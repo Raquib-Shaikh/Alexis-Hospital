@@ -2507,11 +2507,12 @@ textarea {
     position: fixed;
     top: 112px;
     right: -100%;
-    width: min(340px, 85vw);
+    /* width: min(420px, 98vw); */
+    width: 100%;
     height: calc(100vh - 112px);
     background: #fff;
     flex-direction: column;
-    align-items: flex-start;
+    /* align-items: flex-start; */
     padding: 35px;
     gap: 23px;
     box-shadow: -10px 20px 40px #12223d1a;
