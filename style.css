@@ -1863,19 +1863,115 @@ body.video-modal-open {
     gap: 25px;
   }
 }
+
+@media (max-width: 1024px) {
+  #testimonials .testimonials-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 28px;
+  }
+
+  #testimonials .google-reviews-card,
+  #testimonials .testimonial-shell {
+    width: 100%;
+    max-width: 720px;
+    min-width: 0;
+    margin-inline: auto;
+  }
+
+  #testimonials .testimonial-viewport,
+  #testimonials .testimonial-track,
+  #testimonials .testimonial {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  #testimonials .testimonial {
+    flex: 0 0 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  #testimonials .testimonials-grid {
+    gap: 32px;
+  }
+
+  #testimonials .google-reviews-card {
+    padding: 26px 22px;
+    border-radius: 24px;
+    min-height: 0;
+  }
+
+  #testimonials .testimonial-shell {
+    padding-inline: 44px;
+  }
+
+  #testimonials .testimonial {
+    padding: 8px 6px 0;
+  }
+
+  #testimonials .testimonial blockquote {
+    font-size: 16px;
+    line-height: 1.65;
+    overflow-wrap: anywhere;
+  }
+
+  #testimonials .slider-btn {
+    top: 43%;
+    bottom: auto;
+    width: 38px;
+    height: 38px;
+  }
+
+  #testimonials .slider-dots {
+    margin-top: 22px;
+  }
+}
+
 @media (max-width: 560px) {
-  .google-review-score strong {
+  #testimonials .google-reviews-header {
+    gap: 14px;
+  }
+
+  #testimonials .google-review-score strong {
     font-size: 44px;
   }
-  .google-review-copy {
+
+  #testimonials .google-review-copy {
     font-size: 12px;
   }
-  .google-reviews-header strong {
+
+  #testimonials .google-reviews-header strong {
     font-size: 18px;
   }
-  .google-review-button {
+
+  #testimonials .google-review-button {
     font-size: 13px;
     padding: 14px 18px;
+  }
+
+  #testimonials .testimonial-shell {
+    padding-inline: 38px;
+  }
+}
+
+@media (max-width: 375px) {
+  #testimonials .google-reviews-card {
+    padding: 24px 18px;
+  }
+
+  #testimonials .testimonial-shell {
+    padding-inline: 34px;
+  }
+
+  #testimonials .testimonial blockquote {
+    font-size: 15px;
+  }
+
+  #testimonials .slider-btn {
+    top: 43%;
+    bottom: auto;
+    width: 34px;
+    height: 34px;
   }
 }
 .emergency-cta {
