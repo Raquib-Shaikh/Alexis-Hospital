@@ -10,6 +10,7 @@ const $$ = (s, c = document) => [...c.querySelectorAll(s)];
 
 /* ---------- INFORMATION CARD LAYOUT ---------- */
 const cardGrid = $('.dm-card-grid');
+const pageService = document.body?.dataset?.service || 'Service';
 if (cardGrid) {
   ['.dm-why-choose', '.dm-symptoms', '.dm-treatment', '.dm-consult'].forEach(selector => {
     const card = $(selector);
@@ -151,7 +152,7 @@ $('#dmAppointmentForm').addEventListener('submit', e => {
   const g = key => (fd.get(key) || '').trim();
 
   // Build WhatsApp message
-  let msg = `*🏥 Thyroid Disorders — Appointment Request*\n\n`;
+  let msg = `*🏥 ${pageService} — Appointment Request*\n\n`;
   msg += `👤 Patient Name: ${g('name')}\n`;
   msg += `📱 Mobile: ${g('phone')}\n`;
   if (g('email')) msg += `📧 Email: ${g('email')}\n`;
@@ -163,7 +164,7 @@ $('#dmAppointmentForm').addEventListener('submit', e => {
   msg += `🕐 Preferred Time: ${g('time')}\n`;
   if (g('diagnosed')) msg += `🩺 Already Diagnosed: ${g('diagnosed')}\n`;
   if (g('source')) msg += `\n📣 Heard About Us: ${g('source')}\n`;
-  msg += `\nSubmitted from Alexis Hospital — Thyroid Disorders Page`;
+  msg += `\nSubmitted from Alexis Hospital — ${pageService} Page`;
 
   const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
 
@@ -184,7 +185,7 @@ $('#dmAppointmentForm').addEventListener('submit', e => {
       btn.disabled = false;
       form.reset();
       // Re-set readonly department
-      $('#dm-department').value = 'Thyroid Disorders';
+      $('#dm-department').value = pageService;
       setMinimumDate();
     }, 3500);
   } catch (err) {
