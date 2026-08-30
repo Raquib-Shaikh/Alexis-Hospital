@@ -1615,6 +1615,169 @@ body.video-modal-open {
   color: #fff;
   background: #ffffff0c;
 }
+.insurance-modal {
+  position: fixed;
+  inset: 0;
+  display: none;
+  z-index: 2000;
+}
+.insurance-modal.is-open {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.insurance-modal-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 19, 31, 0.72);
+  backdrop-filter: blur(4px);
+}
+.insurance-modal-panel {
+  position: relative;
+  z-index: 1;
+  width: min(90vw, 1080px);
+  max-height: min(98vh, 900px);
+  background: #ffffff;
+  border: 1px solid rgba(10, 111, 183, 0.12);
+  border-radius: 22px;
+  box-shadow: 0 24px 70px rgba(10, 19, 31, 0.28);
+  padding: 18px 18px 16px;
+  display: flex;
+  flex-direction: column;
+}
+.insurance-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 2px 8px 12px;
+}
+.insurance-modal-title {
+  margin: 0;
+  font-size: clamp(1.05rem, 1vw + 0.8rem, 1.4rem);
+  color: #16314d;
+}
+.insurance-modal-close {
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(10, 111, 183, 0.2);
+  border-radius: 50%;
+  background: #f4f9ff;
+  color: #16314d;
+  font-size: 2rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+.insurance-modal-close:hover,
+.insurance-modal-close:focus-visible {
+  background: #eaf6ff;
+  transform: scale(1.04);
+}
+.insurance-modal-image-shell {
+  position: relative;
+  min-height: 240px;
+  max-height: min(74vh, 700px);
+  padding: 18px;
+  border-radius: 18px;
+  background: linear-gradient(180deg, #f8fbff 0%, #eef5fb 100%);
+  border: 1px solid #e7eff7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: auto;
+  touch-action: none;
+  scrollbar-width: thin;
+  cursor: grab;
+}
+.insurance-modal-image-shell.is-dragging {
+  cursor: grabbing;
+}
+.insurance-modal-image {
+  display: block;
+  max-width: none;
+  width: min(100%, 950px);
+  height: auto;
+  transform-origin: center center;
+  transform: scale(var(--insurance-zoom, 1));
+  transition: transform 0.15s ease-out;
+  user-select: none;
+  pointer-events: none;
+  border-radius: 12px;
+  box-shadow: 0 14px 32px rgba(22, 49, 77, 0.08);
+}
+.insurance-modal-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding-top: 14px;
+  flex-wrap: wrap;
+}
+.insurance-zoom-btn {
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 16px;
+  border: 1px solid rgba(10, 111, 183, 0.24);
+  border-radius: 12px;
+  background: #f4f9ff;
+  color: #123357;
+  font-size: 1.2rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+.insurance-zoom-btn:hover,
+.insurance-zoom-btn:focus-visible {
+  background: #eaf6ff;
+  transform: translateY(-1px);
+}
+.insurance-zoom-btn--reset {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+.insurance-modal-close:focus-visible,
+.insurance-zoom-btn:focus-visible,
+.insurance-modal-image-shell:focus-visible {
+  outline: 3px solid rgba(10, 111, 183, 0.25);
+  outline-offset: 2px;
+}
+@media (max-width: 768px) {
+  .insurance-modal-panel {
+    width: min(94vw, 820px);
+    max-height: 92vh;
+    padding: 12px 12px 12px;
+    border-radius: 18px;
+  }
+  .insurance-modal-header {
+    padding: 2px 4px 10px;
+  }
+  .insurance-modal-image-shell {
+    padding: 10px;
+    max-height: 64vh;
+  }
+  .insurance-modal-controls {
+    gap: 8px;
+  }
+  .insurance-zoom-btn {
+    min-width: 48px;
+    min-height: 48px;
+    padding: 0 14px;
+  }
+}
+@media (max-width: 480px) {
+  .insurance-modal-panel {
+    width: 94vw;
+    border-radius: 16px;
+  }
+  .insurance-modal-image-shell {
+    min-height: 180px;
+  }
+  .insurance-modal-close {
+    width: 38px;
+    height: 38px;
+  }
+}
 .insurance-card {
   position: relative;
   z-index: 2;

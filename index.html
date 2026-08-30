@@ -296,7 +296,7 @@
               Documentation support</span><span><i class="fa-solid fa-check"></i> Dedicated help desk</span>
           </div>
           <div class="insurance-actions">
-            <a class="btn btn-white" href="#appointment">Check Eligibility</a><a class="btn btn-ghost-white"
+            <a class="btn btn-white" href="#appointment">Check List of Insurers</a><a class="btn btn-ghost-white"
               href="tel:+918668423088">Contact Insurance Desk</a>
           </div>
         </div>
@@ -314,6 +314,28 @@
         </div>
       </div>
     </section>
+
+    <div class="insurance-modal" id="insuranceImageModal" aria-hidden="true">
+      <div class="insurance-modal-overlay" aria-hidden="true"></div>
+      <div class="insurance-modal-panel" role="dialog" aria-modal="true" aria-labelledby="insuranceModalTitle">
+        <div class="insurance-modal-header">
+          <h3 class="insurance-modal-title" id="insuranceModalTitle">Insurer List</h3>
+          <button class="insurance-modal-close" type="button" aria-label="Close insurance image view">×</button>
+        </div>
+
+        <div class="insurance-modal-image-shell" tabindex="0" aria-label="Insurance image viewer">
+          <img class="insurance-modal-image" src="assets/Cashless Insurance & TPA.jpeg"
+            alt="Cashless insurance and TPA support list for Alexis Hospital patients"
+            draggable="false" />
+        </div>
+
+        <div class="insurance-modal-controls" aria-label="Image zoom controls">
+          <button class="insurance-zoom-btn" type="button" data-insurance-zoom="in" aria-label="Zoom in insurance image">+</button>
+          <button class="insurance-zoom-btn" type="button" data-insurance-zoom="out" aria-label="Zoom out insurance image">−</button>
+          <button class="insurance-zoom-btn insurance-zoom-btn--reset" type="button" data-insurance-zoom="reset" aria-label="Reset insurance image zoom">Reset</button>
+        </div>
+      </div>
+    </div>
 
     <!-- Intagram and Social Media Patient Stories Section -->
     <section class="patient-video-stories section" id="patient-stories" aria-labelledby="patient-stories-title">

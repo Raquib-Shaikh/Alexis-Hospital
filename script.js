@@ -136,6 +136,149 @@ document.addEventListener('keydown',e=>{
   }
 });
 
+const insuranceModal = document.getElementById('insuranceImageModal');
+if (insuranceModal) {
+  const insuranceLink = document.querySelector('.insurance-actions .btn.btn-white');
+  const insuranceCloseButton = insuranceModal.querySelector('.insurance-modal-close');
+  const insuranceImageShell = insuranceModal.querySelector('.insurance-modal-image-shell');
+  const insuranceImage = insuranceModal.querySelector('.insurance-modal-image');
+  const insuranceZoomButtons = insuranceModal.querySelectorAll('.insurance-zoom-btn');
+  const minZoom = 1;
+  const maxZoom = 3;
+  let currentZoom = 1;
+  let isDragging = false;
+  let dragStartX = 0;
+  let dragStartY = 0;
+  let dragStartScrollLeft = 0;
+  let dragStartScrollTop = 0;
+  const previousBodyOverflow = () => document.body.style.overflow;
+
+  const centerZoomedImage = () => {
+    if (currentZoom <= minZoom) {
+      insuranceImageShell.scrollLeft = 0;
+      insuranceImageShell.scrollTop = 0;
+      return;
+    }
+    insuranceImageShell.scrollLeft = Math.max(0, (insuranceImageShell.scrollWidth - insuranceImageShell.clientWidth) / 2);
+    insuranceImageShell.scrollTop = Math.max(0, (insuranceImageShell.scrollHeight - insuranceImageShell.clientHeight) / 2);
+  };
+
+  const setZoom = nextZoom => {
+    currentZoom = Math.min(maxZoom, Math.max(minZoom, Number(nextZoom.toFixed(2))));
+    insuranceImage.style.setProperty('--insurance-zoom', currentZoom.toString());
+    centerZoomedImage();
+  };
+
+  const resetZoom = () => {
+    currentZoom = minZoom;
+    insuranceImage.style.setProperty('--insurance-zoom', '1');
+    insuranceImageShell.scrollLeft = 0;
+    insuranceImageShell.scrollTop = 0;
+  };
+
+  const openInsuranceModal = event => {
+    if (event) event.preventDefault();
+    insuranceModal.classList.add('is-open');
+    insuranceModal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    resetZoom();
+    insuranceCloseButton.focus();
+  };
+
+  const closeInsuranceModal = () => {
+    insuranceModal.classList.remove('is-open');
+    insuranceModal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = previousBodyOverflow();
+    if (insuranceLink) insuranceLink.focus();
+  };
+
+  if (insuranceLink) {
+    insuranceLink.addEventListener('click', event => {
+      event.preventDefault();
+      openInsuranceModal();
+    });
+  }
+
+  insuranceCloseButton.addEventListener('click', closeInsuranceModal);
+  insuranceModal.querySelector('.insurance-modal-overlay').addEventListener('click', closeInsuranceModal);
+
+  insuranceZoomButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const action = button.dataset.insuranceZoom;
+      if (action === 'in') setZoom(currentZoom + 0.25);
+      if (action === 'out') setZoom(currentZoom - 0.25);
+      if (action === 'reset') resetZoom();
+    });
+  });
+
+  insuranceImageShell.addEventListener('wheel', event => {
+    if (!insuranceModal.classList.contains('is-open')) return;
+    event.preventDefault();
+    const direction = event.deltaY < 0 ? 0.18 : -0.18;
+    setZoom(currentZoom + direction);
+  }, { passive: false });
+
+  let pinchDistance = null;
+  insuranceImageShell.addEventListener('touchstart', event => {
+    if (event.touches.length === 2) {
+      const [touchA, touchB] = event.touches;
+      pinchDistance = Math.hypot(touchB.clientX - touchA.clientX, touchB.clientY - touchA.clientY);
+    }
+  }, { passive: true });
+
+  insuranceImageShell.addEventListener('touchmove', event => {
+    if (event.touches.length === 2 && pinchDistance) {
+      event.preventDefault();
+      const [touchA, touchB] = event.touches;
+      const nextDistance = Math.hypot(touchB.clientX - touchA.clientX, touchB.clientY - touchA.clientY);
+      const ratio = nextDistance / pinchDistance;
+      setZoom(currentZoom * ratio);
+      pinchDistance = nextDistance;
+    }
+  }, { passive: false });
+
+  insuranceImageShell.addEventListener('pointerdown', event => {
+    if (currentZoom <= minZoom) return;
+    isDragging = true;
+    dragStartX = event.clientX;
+    dragStartY = event.clientY;
+    dragStartScrollLeft = insuranceImageShell.scrollLeft;
+    dragStartScrollTop = insuranceImageShell.scrollTop;
+    insuranceImageShell.classList.add('is-dragging');
+    insuranceImageShell.setPointerCapture(event.pointerId);
+  });
+
+  insuranceImageShell.addEventListener('pointermove', event => {
+    if (!isDragging) return;
+    const deltaX = event.clientX - dragStartX;
+    const deltaY = event.clientY - dragStartY;
+    insuranceImageShell.scrollLeft = dragStartScrollLeft - deltaX;
+    insuranceImageShell.scrollTop = dragStartScrollTop - deltaY;
+  });
+
+  insuranceImageShell.addEventListener('pointerup', () => {
+    isDragging = false;
+    insuranceImageShell.classList.remove('is-dragging');
+  });
+
+  insuranceImageShell.addEventListener('pointerleave', () => {
+    isDragging = false;
+    insuranceImageShell.classList.remove('is-dragging');
+  });
+
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && insuranceModal.classList.contains('is-open')) {
+      closeInsuranceModal();
+    }
+  });
+
+  insuranceImageShell.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && insuranceModal.classList.contains('is-open')) {
+      closeInsuranceModal();
+    }
+  });
+}
+
 // Patient stories are displayed through Instagram's official embed inside an on-site modal.
 const videoModal=$('#patientVideoModal');
 if(videoModal){
