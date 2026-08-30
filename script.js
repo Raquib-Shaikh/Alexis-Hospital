@@ -151,7 +151,7 @@ if (insuranceModal) {
   let dragStartY = 0;
   let dragStartScrollLeft = 0;
   let dragStartScrollTop = 0;
-  const previousBodyOverflow = () => document.body.style.overflow;
+  let previousBodyOverflow = '';
 
   const centerZoomedImage = () => {
     if (currentZoom <= minZoom) {
@@ -178,6 +178,7 @@ if (insuranceModal) {
 
   const openInsuranceModal = event => {
     if (event) event.preventDefault();
+    previousBodyOverflow = document.body.style.overflow || getComputedStyle(document.body).overflow || '';
     insuranceModal.classList.add('is-open');
     insuranceModal.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
@@ -188,7 +189,8 @@ if (insuranceModal) {
   const closeInsuranceModal = () => {
     insuranceModal.classList.remove('is-open');
     insuranceModal.setAttribute('aria-hidden', 'true');
-    document.body.style.overflow = previousBodyOverflow();
+    document.body.style.overflow = previousBodyOverflow || '';
+    previousBodyOverflow = '';
     if (insuranceLink) insuranceLink.focus();
   };
 
